@@ -20,7 +20,7 @@ local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
 -- File Explorer
-map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", opts)
+map("n", "<leader>e", ":Ex<CR>", opts)
 
 -- Todo Comments
 map("n", "<leader>td", "<cmd>TodoTelescope<CR>", opts)
