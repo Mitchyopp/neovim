@@ -9,3 +9,5 @@ Have a good day!
 Keybinds are located at `lua/config/keybinds.lua` \n
 Options are located at `lua/config/options.lua` \n
 The plugin folder is located at `lua/plugins` \n
+
+Test 
