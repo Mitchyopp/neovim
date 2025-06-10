@@ -3,6 +3,11 @@
 vim.keymap.set('n', '<leader>q', ':q<CR>')
 vim.keymap.set('n', '<leader>w', ':w<CR>')
 vim.keymap.set('n', '<leader>e', ':Explore<CR>')
+vim.keymap.set('n', '<leader>p', '"+p', { desc = "Paste from system clipboard" })
+vim.keymap.set('n', '<leader>P', '"+P', { desc = "Paste before from system clipboard" })
+vim.keymap.set('v', '<leader>p', '"+p', { desc = "Paste from system clipboard (visual)" })
+vim.keymap.set('v', '<leader>P', '"+P', { desc = "Paste before from system clipboard (visual)" })
+
 vim.g.mapleader = " "
 
 -- telescope keybinds
