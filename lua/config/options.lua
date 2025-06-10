@@ -1,4 +1,5 @@
--- Basic settigns
+-- Basic settings
+
 -- This is also a comment
 
 vim.opt.number = true
@@ -10,5 +11,6 @@ vim.opt.termguicolors = true
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.opt.cursorline = true
+vim.opt.undofile = true
 
 print("options are working.")
