@@ -37,6 +37,7 @@ return {
         gopls = {},
         clangd = {},
         vimls = {},
+        nil_ls = {},
       }
 
       for name, config in pairs(servers) do
