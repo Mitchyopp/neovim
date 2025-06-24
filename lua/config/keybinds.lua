@@ -31,3 +31,8 @@ map("n", "<leader>ha", function() require("harpoon.mark").add_file() end, opts)
 map("n", "<leader>hn", function() require("harpoon.ui").nav_next() end, opts)
 map("n", "<leader>hp", function() require("harpoon.ui").nav_prev() end, opts)
 
+-- vim panes nav
+vim.keymap.set('n', '<c-k', ':windcmd k<CR>')
+vim.keymap.set('n', '<c-j', ':windcmd j<CR>')
+vim.keymap.set('n', '<c-h', ':windcmd h<CR>')
+vim.keymap.set('n', '<c-l', ':windcmd l<CR>')
