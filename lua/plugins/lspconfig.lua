@@ -38,6 +38,7 @@ return {
         clangd = {},
         vimls = {},
         nil_ls = {},
+        bashls = {},
       }
 
       for name, config in pairs(servers) do
