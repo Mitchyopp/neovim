@@ -1,9 +1,10 @@
+vim.g.mapleader = " "
+
 -- keymaps
 
 vim.keymap.set('n', '<leader>q', ':q<CR>')
 vim.keymap.set('n', '<leader>w', ':w<CR>')
 vim.keymap.set('n', '<leader>e', ':Explore<CR>')
-vim.g.mapleader = " "
 
 -- telescope keybinds
 local builtin = require('telescope.builtin')
@@ -25,14 +26,39 @@ map("n", "<leader>e", ":Ex<CR>", opts)
 -- Todo Comments
 map("n", "<leader>td", "<cmd>TodoTelescope<CR>", opts)
 
--- Harpoon (if you're using it)
-map("n", "<leader>hm", function() require("harpoon.ui").toggle_quick_menu() end, opts)
-map("n", "<leader>ha", function() require("harpoon.mark").add_file() end, opts)
-map("n", "<leader>hn", function() require("harpoon.ui").nav_next() end, opts)
-map("n", "<leader>hp", function() require("harpoon.ui").nav_prev() end, opts)
+-- Harpoon
 
--- vim panes nav
-vim.keymap.set('n', '<c-k', ':windcmd k<CR>')
-vim.keymap.set('n', '<c-j', ':windcmd j<CR>')
-vim.keymap.set('n', '<c-h', ':windcmd h<CR>')
-vim.keymap.set('n', '<c-l', ':windcmd l<CR>')
+local harpoon = require("harpoon")
+harpoon:setup()
+
+vim.keymap.set("n", "<leader>a", function()
+  harpoon:list():add()
+end)
+
+vim.keymap.set("n", "<leader>h", function()
+  harpoon.ui:toggle_quick_menu(harpoon:list())
+end)
+
+vim.keymap.set("n", "<leader>1", function()
+  harpoon:list():select(1)
+end)
+
+vim.keymap.set("n", "<leader>2", function()
+  harpoon:list():select(2)
+end)
+
+vim.keymap.set("n", "<leader>3", function()
+  harpoon:list():select(3)
+end)
+
+vim.keymap.set("n", "<leader>4", function()
+  harpoon:list():select(4)
+end)
+
+vim.keymap.set("n", "<leader>n", function()
+  harpoon:list():next()
+end)
+
+vim.keymap.set("n", "<leader>p", function()
+  harpoon:list():prev()
+end)
