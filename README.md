@@ -18,7 +18,7 @@ To be honest this config is all i really need but i will maintain it since i use
 > If you do you can make it a backup with:
 ```mv $HOME/.config/nvim $HOME/.config/nvim_backup```
 
-##Install
+## Install
 ```git clone https://github.com/Mitchyopp/neovim $HOME/.config/nvim```
 
 Then just run `nvim` and once inside `:Lazy`
