@@ -13,8 +13,6 @@ vim.opt.smartindent = true
 vim.opt.cursorline = true
 vim.opt.undofile = true
 
-print("options are working.")
-
 vim.diagnostic.config({
   virtual_text = true,
   signs = true,
