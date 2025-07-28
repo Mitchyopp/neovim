@@ -4,7 +4,7 @@ vim.g.mapleader = " "
 
 vim.keymap.set('n', '<leader>q', ':q<CR>')
 vim.keymap.set('n', '<leader>w', ':w<CR>')
-vim.keymap.set('n', '<leader>e', ':Explore<CR>')
+-- vim.keymap.set('n', '<leader>e', ':Explore<CR>')
 
 -- telescope keybinds
 local builtin = require('telescope.builtin')
@@ -15,13 +15,13 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Help Tags' })
 
 -- Filetree
 
-vim.keymap.set('n', '\\', ':NvimTreeToggle<CR>')
+-- vim.keymap.set('n', '\\', ':NvimTreeToggle<CR>')
 
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
 -- File Explorer
-map("n", "<leader>e", ":Ex<CR>", opts)
+--map("n", "<leader>e", ":Ex<CR>", opts)
 
 -- Todo Comments
 map("n", "<leader>td", "<cmd>TodoTelescope<CR>", opts)
@@ -65,3 +65,19 @@ end)
 
 -- Mini.nvim
 
+map("n", "<leader>e", function ()
+ require("mini.files").open(vim.api.nvim_buf_get_name(0))
+end, { desc = "File explorer" })
+
+
+map("n", "<leader>j", function ()
+ require("mini.jump").jump()
+end, { desc = "Jump to word" })
+
+map("n", "s", function ()
+ require("mini.jump2d").start()
+end, { desc = "Jump 2D" })
+
+map("n", "<leader>gg", function ()
+ require("mini.git").show_at_cursor()
+end, { desc = "Show git hunk" })
