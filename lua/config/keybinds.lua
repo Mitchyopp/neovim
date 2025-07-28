@@ -62,3 +62,6 @@ end)
 vim.keymap.set("n", "<leader>p", function()
   harpoon:list():prev()
 end)
+
+-- Mini.nvim
+
