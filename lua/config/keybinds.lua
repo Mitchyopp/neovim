@@ -69,8 +69,7 @@ map("n", "<leader>e", function ()
  require("mini.files").open(vim.api.nvim_buf_get_name(0))
 end, { desc = "File explorer" })
 
-
-map("n", "<leader>j", function ()
+map("n", "<leader>J", function ()
  require("mini.jump").jump()
 end, { desc = "Jump to word" })
 
@@ -81,3 +80,11 @@ end, { desc = "Jump 2D" })
 map("n", "<leader>gg", function ()
  require("mini.git").show_at_cursor()
 end, { desc = "Show git hunk" })
+
+map("n", "<leader>tw", function ()
+ require("mini.trailspace").trim()
+end, { desc = "Trim whitespace" })
+
+map("n", "<leader>S", function ()
+ require("mini.starter").open()
+end, { desc = "Dashboard" })
