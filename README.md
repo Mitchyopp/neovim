@@ -1,14 +1,8 @@
 # Welcome to my Neovim config!
 
-It's extremely basic and uses Lazy.nvim as the package manager.
-To be honest this config is all i really need but i will maintain it since i use it daily lol
+This is a basic neovim config using pack.nvim with everything inside `init.lua`
 
 ## Notes
-
-> [!NOTE]
-> Keybinds are located at `lua/config/keybinds.lua` 
-> Options are located at `lua/config/options.lua` 
-> The plugin folder is located at `lua/plugins` 
 
 > [!WARNING]
 > If git clone fails or the plugins don't install then make sure you have SSH setup.
@@ -21,5 +15,6 @@ To be honest this config is all i really need but i will maintain it since i use
 ## Install
 ```git clone https://github.com/Mitchyopp/neovim $HOME/.config/nvim```
 
-Then just run `nvim` and once inside `:Lazy`
-You can then install all the plugins with `I` and update with `U`
+Then just run `nvim` and once inside `:so`
+
+Enjoy!
