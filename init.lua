@@ -1,3 +1,115 @@
-require("config.options")
-require("config.lazy")
-require("config.keybinds")
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.signcolumn = "yes"
+vim.o.cursorline = true
+vim.o.smartindent = true
+vim.o.termguicolors = true
+vim.o.undofile = true
+vim.opt.undodir = vim.fn.expand("$HOME/.config/nvim/undodir")
+vim.o.autoread = true
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+vim.o.softtabstop = 2
+vim.o.swapfile = false
+vim.g.mapleader = " "
+vim.o.winborder = "rounded"
+
+vim.keymap.set('n', '<leader>o', ':update<CR> :source<CR>')
+vim.keymap.set('n', '<leader>w', ':write<CR>')
+vim.keymap.set('n', '<leader>q', ':quit<CR>')
+
+vim.keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
+vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
+
+vim.keymap.set({'n', 'v', 'x'}, '<leader>y', '"+y<CR>')
+vim.keymap.set({'n', 'v', 'x'}, '<leader>p', '"+p<CR>')
+vim.keymap.set('n', '<leader>d', '"+d<CR>')
+
+vim.pack.add({
+	{ src = "https://github.com/rebelot/kanagawa.nvim" },
+	{ src = "https://github.com/echasnovski/mini.nvim" },
+	{ src = "https://github.com/neovim/nvim-lspconfig" },
+	{ src = "https://github.com/mluders/comfy-line-numbers.nvim" },
+	{ src = "https://github.com/vyfor/cord.nvim" },
+	{ src = "https://github.com/saecki/crates.nvim" },
+	{ src = "https://github.com/j-hui/fidget.nvim" },
+	{ src = "https://github.com/folke/twilight.nvim" },
+})
+
+require "mini.pick".setup()
+require "mini.ai".setup()
+require "mini.align".setup()
+require "mini.comment".setup()
+require "mini.completion".setup()
+require "mini.move".setup()
+require "mini.operators".setup()
+require "mini.pairs".setup()
+require "mini.snippets".setup()
+require "mini.splitjoin".setup()
+require "mini.surround".setup()
+require "mini.clue".setup()
+require "mini.diff".setup()
+require "mini.extra".setup()
+require "mini.files".setup({
+	mappings = {
+		go_in_plus = "<CR>",
+		go_in = "1",
+		go_out = "h",
+	},
+	windows = {
+		preview = true,
+		width_focus = 30,
+		width_nofocus = 20,
+		width_preview = 60,
+	},
+	options = {
+		use_as_default_explorer = false,
+	},
+})
+require "mini.git".setup()
+-- require "mini.jump".setup()
+-- require "mini.jump2d".setup()
+-- require "mini.animate".setup()
+require "mini.colors".setup()
+require "mini.cursorword".setup()
+require "mini.hipatterns".setup()
+require "mini.icons".setup()
+require "mini.indentscope".setup()
+require "mini.notify".setup()
+require "mini.starter".setup()
+require "mini.statusline".setup()
+require "mini.tabline".setup()
+require "mini.trailspace".setup()
+require "mini.diff".setup()
+require "mini.doc".setup()
+require "mini.test".setup()
+
+require "comfy-line-numbers".setup()
+require "cord".setup({
+	opts = {
+		editor = {
+			tooltip = 'The best way to code ;)'
+		},
+		idle = {
+			timeout = 600000,
+			show_status = false,
+		},
+	},
+})
+require "crates".setup()
+require "fidget".setup()
+require "twilight".setup()
+
+vim.keymap.set('n', '<leader>f', ":Pick files<CR>")
+vim.keymap.set('n', '<leader>fg', ":Pick grep live<CR>")
+vim.keymap.set('n', '<leader>h', ":Pick help<CR>")
+vim.keymap.set('n', '<leader>e', ":lua MiniFiles.open()<CR>")
+vim.keymap.set('n', '<leader>tw', ":lua MiniTrailspace.trim()<CR>")
+vim.keymap.set('n', '<leader>gg', ":lua MiniGit.show_at_cursor()<CR>")
+vim.keymap.set('n', '<leader>t', ":Twilight<CR>")
+
+vim.lsp.enable({ "lua_ls" })
+vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
+
+vim.cmd("colorscheme kanagawa-dragon")
+
