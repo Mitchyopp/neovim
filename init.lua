@@ -34,6 +34,7 @@ vim.pack.add({
 	{ src = "https://github.com/saecki/crates.nvim" },
 	{ src = "https://github.com/j-hui/fidget.nvim" },
 	{ src = "https://github.com/folke/twilight.nvim" },
+	{ src = "https://github.com/mrcjkb/rustaceanvim" },
 })
 
 require "mini.pick".setup()
