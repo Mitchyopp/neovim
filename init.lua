@@ -13,6 +13,7 @@ vim.o.softtabstop = 2
 vim.o.swapfile = false
 vim.g.mapleader = " "
 vim.o.winborder = "rounded"
+vim.o.scrolloff = 4
 
 vim.keymap.set('n', '<leader>o', ':update<CR> :source<CR>')
 vim.keymap.set('n', '<leader>w', ':write<CR>')
@@ -21,8 +22,8 @@ vim.keymap.set('n', '<leader>q', ':quit<CR>')
 vim.keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
 vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
 
-vim.keymap.set({'n', 'v', 'x'}, '<leader>y', '"+y<CR>')
-vim.keymap.set({'n', 'v', 'x'}, '<leader>p', '"+p<CR>')
+vim.keymap.set({ 'n', 'v', 'x' }, '<leader>y', '"+y<CR>')
+vim.keymap.set({ 'n', 'v', 'x' }, '<leader>p', '"+p<CR>')
 vim.keymap.set('n', '<leader>d', '"+d<CR>')
 
 vim.pack.add({
@@ -81,20 +82,17 @@ require "mini.starter".setup()
 require "mini.statusline".setup()
 require "mini.tabline".setup()
 require "mini.trailspace".setup()
-require "mini.diff".setup()
 require "mini.doc".setup()
 require "mini.test".setup()
 
 require "comfy-line-numbers".setup()
 require "cord".setup({
-	opts = {
-		editor = {
-			tooltip = 'The best way to code ;)'
-		},
-		idle = {
-			timeout = 600000,
-			show_status = false,
-		},
+	editor = {
+		tooltip = 'The best way to code ;)'
+	},
+	idle = {
+		timeout = 600000,
+		show_status = false,
 	},
 })
 require "crates".setup()
@@ -113,4 +111,3 @@ vim.lsp.enable({ "lua_ls" })
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
 
 vim.cmd("colorscheme kanagawa-dragon")
-
