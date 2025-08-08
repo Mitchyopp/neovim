@@ -36,7 +36,11 @@ vim.pack.add({
 	{ src = "https://github.com/j-hui/fidget.nvim" },
 	{ src = "https://github.com/folke/twilight.nvim" },
 	{ src = "https://github.com/mrcjkb/rustaceanvim" },
+	{ src = "https://github.com/mason-org/mason.nvim" },
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 })
+
+require "mason".setup()
 
 require "mini.pick".setup()
 require "mini.ai".setup()
