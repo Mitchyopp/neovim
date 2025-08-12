@@ -1,3 +1,4 @@
+vim.g.mapleader = " "
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.signcolumn = "yes"
@@ -11,9 +12,9 @@ vim.o.tabstop = 2
 vim.o.shiftwidth = 2
 vim.o.softtabstop = 2
 vim.o.swapfile = false
-vim.g.mapleader = " "
 vim.o.winborder = "rounded"
 vim.o.scrolloff = 4
+vim.o.clipboard = "unnamedplus"
 
 vim.keymap.set('n', '<leader>o', ':update<CR> :source<CR>')
 vim.keymap.set('n', '<leader>w', ':write<CR>')
@@ -22,8 +23,8 @@ vim.keymap.set('n', '<leader>q', ':quit<CR>')
 vim.keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
 vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
 
-vim.keymap.set({ 'n', 'v', 'x' }, '<leader>y', '"+y<CR>')
-vim.keymap.set({ 'n', 'v', 'x' }, '<leader>p', '"+p<CR>')
+-- vim.keymap.set({ 'n', 'v', 'x' }, '<leader>y', '"+y<CR>')
+-- vim.keymap.set({ 'n', 'v', 'x' }, '<leader>p', '"+p<CR>')
 vim.keymap.set('n', '<leader>d', '"+d<CR>')
 
 vim.pack.add({
