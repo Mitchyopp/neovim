@@ -54,7 +54,15 @@ require "mini.pairs".setup()
 require "mini.snippets".setup()
 require "mini.splitjoin".setup()
 require "mini.surround".setup()
-require "mini.clue".setup()
+require("mini.clue").setup({
+  triggers = {
+    { mode = "n", keys = "<Leader>" },
+    { mode = "x", keys = "<Leader>" },
+    { mode = "n", keys = "g" },
+    { mode = "x", keys = "g" },
+    { mode = "n", keys = "[" }, { mode = "n", keys = "]" },
+  },
+})
 require "mini.diff".setup()
 require "mini.extra".setup()
 require "mini.files".setup({
