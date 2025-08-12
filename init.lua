@@ -23,8 +23,10 @@ vim.keymap.set('n', '<leader>q', ':quit<CR>')
 vim.keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
 vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
 
--- vim.keymap.set({ 'n', 'v', 'x' }, '<leader>y', '"+y<CR>')
--- vim.keymap.set({ 'n', 'v', 'x' }, '<leader>p', '"+p<CR>')
+vim.api.nvim_create_autocmd("TextYankPost", {
+  callback = function() vim.highlight.on_yank({ timeout = 120 }) end
+})
+
 vim.keymap.set('n', '<leader>d', '"+d<CR>')
 
 vim.pack.add({
