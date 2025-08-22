@@ -6,7 +6,7 @@ if ! command -v git >/dev/null 2>&1; then
 	exit 1
 fi
 
-DIR="$HOME/.config/nvim"
+NVIM_DIR="$HOME/.config/nvim"
 TS="$(date +%s)"
 
 if [ -d "$NVIM_DIR" ]; then
