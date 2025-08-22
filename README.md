@@ -13,8 +13,9 @@ This is a basic neovim config using pack.nvim with everything inside `init.lua`
 ```mv $HOME/.config/nvim $HOME/.config/nvim_backup```
 
 ## Install
-Install script
+Install script (Always read a script before executing it to make sure it's safe!)
 ```curl -fsSL https://github.com/Mitchyopp/neovim/install.sh | bash```
+
 Manual clone
 ```git clone https://github.com/Mitchyopp/neovim $HOME/.config/nvim```
 
