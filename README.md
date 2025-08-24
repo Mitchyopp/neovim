@@ -8,7 +8,7 @@ This is a basic neovim config using pack.nvim with everything inside `init.lua`
 > If git clone fails or the plugins don't install then make sure you have SSH setup.
 
 > [!IMPORTANT]
-> Make sure you are using neovim version 12.0+ 
+> Make sure you are using neovim version 12.0+
 
 > [!TIP]
 > Make sure you don't have a config located already at /home/YourUser/.config/nvim (The install script does this automatically)
