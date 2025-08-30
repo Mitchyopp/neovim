@@ -4,7 +4,7 @@ vim.o.relativenumber = true
 vim.o.signcolumn = "yes"
 vim.o.cursorline = true
 vim.o.smartindent = true
-vim.o.termguicolors = true
+vim.o.termguicolors = false
 vim.o.undofile = true
 vim.opt.undodir = vim.fn.expand("$HOME/.config/nvim/undodir")
 vim.o.autoread = true
@@ -125,4 +125,5 @@ vim.keymap.set('n', '<leader>t', ":Twilight<CR>")
 vim.lsp.enable({ "lua_ls" })
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
 
-vim.cmd("colorscheme kanagawa-dragon")
+-- vim.cmd("colorscheme kanagawa-dragon")
+vim.cmd("colorscheme default")
