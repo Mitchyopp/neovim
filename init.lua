@@ -4,7 +4,7 @@ vim.o.relativenumber = true
 vim.o.signcolumn = "yes"
 vim.o.cursorline = true
 vim.o.smartindent = true
-vim.o.termguicolors = false
+vim.o.termguicolors = false -- Needs to be false for some reason to see properly
 vim.o.undofile = true
 vim.opt.undodir = vim.fn.expand("$HOME/.config/nvim/undodir")
 vim.o.autoread = true
@@ -15,6 +15,16 @@ vim.o.swapfile = false
 vim.o.winborder = "rounded"
 vim.o.scrolloff = 4
 vim.o.clipboard = "unnamedplus"
+vim.o.splitright = true
+vim.o.splitbelow = true
+vim.o.confirm = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.breakindent = true
+vim.o.linebreak = true
+vim.o.smoothscroll = true
+
+
 
 vim.keymap.set('n', '<leader>o', ':update<CR> :source<CR>')
 vim.keymap.set('n', '<leader>w', ':write<CR>')
@@ -26,8 +36,6 @@ vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function() vim.highlight.on_yank({ timeout = 120 }) end
 })
-
-vim.keymap.set('n', '<leader>d', '"+d<CR>')
 
 vim.pack.add({
 	{ src = "https://github.com/rebelot/kanagawa.nvim" },
@@ -43,6 +51,19 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 })
 
+require("nvim-treesitter.configs").setup({
+  ensure_installed = { "lua", "vim", "vimdoc", "rust", "toml", "bash", "json", "yaml", "markdown", "markdown_inline", "regex", "html", "css" },
+  highlight = { enable = true },
+  indent = { enable = true },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "<CR>",
+      node_incremental = "<CR>",
+      node_decremental = "<BS>",
+    },
+  },
+})
 require "mason".setup()
 
 require "mini.pick".setup()
@@ -84,10 +105,9 @@ require "mini.files".setup({
 	},
 })
 require "mini.git".setup()
--- require "mini.jump".setup()
--- require "mini.jump2d".setup()
+
 -- require "mini.animate".setup()
-require "mini.colors".setup()
+
 require "mini.cursorword".setup()
 require "mini.hipatterns".setup()
 require "mini.icons".setup()
