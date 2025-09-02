@@ -71,7 +71,11 @@ require "mini.pick".setup()
 require "mini.ai".setup()
 require "mini.align".setup()
 require "mini.comment".setup()
-require "mini.completion".setup()
+require "mini.completion".setup({
+	delay = { completion = 60, info = 80, signature = 50 },
+	lsp_completion = { auto_setup = true },
+	fallback_action = '<C-n>',
+})
 require "mini.move".setup()
 require "mini.operators".setup()
 require "mini.pairs".setup()
@@ -151,7 +155,7 @@ vim.keymap.set('n', '<leader>tw', ":lua MiniTrailspace.trim()<CR>")
 vim.keymap.set('n', '<leader>gg', ":lua MiniGit.show_at_cursor()<CR>")
 vim.keymap.set('n', '<leader>tt', ":Twilight<CR>")
 
-vim.lsp.enable({ "lua_ls" })
+vim.lsp.enable({ "lua_ls", "html", "cssls", "jsonls", "yamlls", "tailwindcss", "eslint", "emmet_ls" })
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
 
 -- vim.cmd("colorscheme kanagawa-dragon")
