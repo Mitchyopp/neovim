@@ -49,6 +49,7 @@ vim.pack.add({
 	{ src = "https://github.com/mason-org/mason.nvim" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 	{ src = "https://github.com/rmagatti/auto-session" },
+	{ src = "https://github.com/windwp/nvim-ts-autotag" },
 })
 
 require("nvim-treesitter.configs").setup({
@@ -140,6 +141,7 @@ require("auto-session").setup({
   suppressed_dirs = { "~/", "~/Downloads", "/" },
   show_auto_restore_notif = true,
 })
+require("nvim-ts-autotag").setup()
 
 vim.keymap.set('n', '<leader>f', ":Pick files<CR>")
 vim.keymap.set('n', '<leader>fg', ":Pick grep live<CR>")
@@ -147,7 +149,7 @@ vim.keymap.set('n', '<leader>h', ":Pick help<CR>")
 vim.keymap.set('n', '<leader>e', ":lua MiniFiles.open()<CR>")
 vim.keymap.set('n', '<leader>tw', ":lua MiniTrailspace.trim()<CR>")
 vim.keymap.set('n', '<leader>gg', ":lua MiniGit.show_at_cursor()<CR>")
-vim.keymap.set('n', '<leader>t', ":Twilight<CR>")
+vim.keymap.set('n', '<leader>tt', ":Twilight<CR>")
 
 vim.lsp.enable({ "lua_ls" })
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
