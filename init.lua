@@ -23,6 +23,7 @@ vim.o.smartcase = true
 vim.o.breakindent = true
 vim.o.linebreak = true
 vim.o.smoothscroll = true
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 vim.keymap.set('n', '<leader>o', ':update<CR> :source<CR>')
 vim.keymap.set('n', '<leader>w', ':write<CR>')
@@ -47,6 +48,7 @@ vim.pack.add({
 	{ src = "https://github.com/mrcjkb/rustaceanvim" },
 	{ src = "https://github.com/mason-org/mason.nvim" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+	{ src = "https://github.com/rmagatti/auto-session" },
 })
 
 require("nvim-treesitter.configs").setup({
@@ -131,6 +133,13 @@ require "cord".setup({
 require "crates".setup()
 require "fidget".setup()
 require "twilight".setup()
+require("auto-session").setup({
+  auto_save = true,
+  auto_restore = true,
+  auto_create = true,
+  suppressed_dirs = { "~/", "~/Downloads", "/" },
+  show_auto_restore_notif = true,
+})
 
 vim.keymap.set('n', '<leader>f', ":Pick files<CR>")
 vim.keymap.set('n', '<leader>fg', ":Pick grep live<CR>")
