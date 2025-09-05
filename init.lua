@@ -4,7 +4,7 @@ vim.o.relativenumber = true
 vim.o.signcolumn = "yes"
 vim.o.cursorline = true
 vim.o.smartindent = true
-vim.o.termguicolors = false -- Needs to be false for some reason to see properly
+vim.o.termguicolors = true -- Needs to be false for some reason to see properly
 vim.o.undofile = true
 vim.opt.undodir = vim.fn.expand("$HOME/.config/nvim/undodir")
 vim.o.autoread = true
@@ -50,6 +50,7 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 	{ src = "https://github.com/rmagatti/auto-session" },
 	{ src = "https://github.com/windwp/nvim-ts-autotag" },
+	{ src = "https://github.com/norcalli/nvim-colorizer.lua" },
 })
 
 require("nvim-treesitter.configs").setup({
@@ -67,6 +68,7 @@ require("nvim-treesitter.configs").setup({
 })
 require "mason".setup()
 
+require "colorizer".setup()
 require "mini.pick".setup()
 require "mini.ai".setup()
 require "mini.align".setup()
