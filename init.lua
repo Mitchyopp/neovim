@@ -68,7 +68,6 @@ require("nvim-treesitter.configs").setup({
 })
 require "mason".setup()
 
-require "colorizer".setup()
 require "mini.pick".setup()
 require "mini.ai".setup()
 require "mini.align".setup()
@@ -140,6 +139,7 @@ require "cord".setup({
 require "crates".setup()
 require "fidget".setup()
 require "twilight".setup()
+require "colorizer".setup()
 require("auto-session").setup({
   auto_save = true,
   auto_restore = true,
@@ -148,6 +148,13 @@ require("auto-session").setup({
   show_auto_restore_notif = true,
 })
 require("nvim-ts-autotag").setup()
+
+require("kanagawa").setup({
+	theme = "wave",
+	transparent = true,
+	colors = { theme = { all = { ui = { bg_gutter = "none" } } } },
+})
+
 
 vim.keymap.set('n', '<leader>f', ":Pick files<CR>")
 vim.keymap.set('n', '<leader>fg', ":Pick grep live<CR>")
@@ -161,4 +168,5 @@ vim.lsp.enable({ "lua_ls", "html", "cssls", "jsonls", "yamlls", "tailwindcss", "
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
 
 -- vim.cmd("colorscheme kanagawa-dragon")
-vim.cmd("colorscheme default")
+vim.cmd.colorscheme("kanagawa")
+-- vim.cmd("colorscheme default")
