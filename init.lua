@@ -1,3 +1,5 @@
+-- Vim.options
+
 vim.g.mapleader = " "
 vim.o.number = true
 vim.o.relativenumber = true
@@ -36,97 +38,57 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function() vim.highlight.on_yank({ timeout = 120 }) end
 })
 
+-- Vim.keymaps
+
+vim.keymap.set("n", "<leader>e", ":Ex<CR>")
+vim.keymap.set("n", "<leader>w", ":w<CR>")
+vim.keymap.set("n", "<leader>q", ":q!<CR>")
+vim.keymap.set('n', '<leader>f', ":Pick files<CR>")
+vim.keymap.set('n', '<leader>fg', ":Pick grep live<CR>")
+vim.keymap.set('n', '<leader>h', ":Pick help<CR>")
+vim.keymap.set('n', '<leader>e', ":lua MiniFiles.open()<CR>")
+vim.keymap.set('n', '<leader>tw', ":lua MiniTrailspace.trim()<CR>")
+vim.keymap.set('n', '<leader>gg', ":lua MiniGit.show_at_cursor()<CR>")
+vim.keymap.set('n', '<leader>tt', ":Twilight<CR>")
+vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
+
+-- Vim.Pack
+
 vim.pack.add({
 	{ src = "https://github.com/rebelot/kanagawa.nvim" },
-	{ src = "https://github.com/echasnovski/mini.nvim" },
+	{ src = "https://github.com/nvim-mini/mini.nvim" },
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
+	{ src = "https://github.com/mason-org/mason.nvim" },
+	{ src = "https://github.com/mason-org/mason-lspconfig.nvim" },
+	{ src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 	{ src = "https://github.com/mluders/comfy-line-numbers.nvim" },
 	{ src = "https://github.com/vyfor/cord.nvim" },
 	{ src = "https://github.com/saecki/crates.nvim" },
 	{ src = "https://github.com/j-hui/fidget.nvim" },
 	{ src = "https://github.com/folke/twilight.nvim" },
 	{ src = "https://github.com/mrcjkb/rustaceanvim" },
-	{ src = "https://github.com/mason-org/mason.nvim" },
-	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
-	{ src = "https://github.com/rmagatti/auto-session" },
 	{ src = "https://github.com/windwp/nvim-ts-autotag" },
-	{ src = "https://github.com/norcalli/nvim-colorizer.lua" },
 })
 
-require("nvim-treesitter.configs").setup({
-  ensure_installed = { "lua", "vim", "vimdoc", "rust", "toml", "bash", "json", "yaml", "markdown", "markdown_inline", "regex", "html", "css" },
-  highlight = { enable = true },
-  indent = { enable = true },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = "<CR>",
-      node_incremental = "<CR>",
-      node_decremental = "<BS>",
-    },
-  },
+-- Vim.Lsp
+
+require('mason').setup()
+require('mason-lspconfig').setup()
+require('mason-tool-installer').setup({
+	ensure_installed = {
+		"lua_ls",
+		"html-lsp",
+		"css-lsp",
+		"typescript-language-server",
+		"bash-language-server",
+		"vim-language-server",
+	}
 })
-require "mason".setup()
 
-require "mini.pick".setup()
-require "mini.ai".setup()
-require "mini.align".setup()
-require "mini.comment".setup()
--- require "mini.completion".setup({
--- 	delay = { completion = 60, info = 80, signature = 50 },
--- 	lsp_completion = { auto_setup = true },
--- 	fallback_action = '<C-n>',
--- })
-require "mini.move".setup()
-require "mini.operators".setup()
-require "mini.pairs".setup()
-require "mini.snippets".setup()
-require "mini.splitjoin".setup()
-require "mini.surround".setup()
-require("mini.clue").setup({
-  triggers = {
-    { mode = "n", keys = "<Leader>" },
-    { mode = "x", keys = "<Leader>" },
-    { mode = "n", keys = "g" },
-    { mode = "x", keys = "g" },
-    { mode = "n", keys = "[" }, { mode = "n", keys = "]" },
-  },
-})
-require "mini.diff".setup()
-require "mini.extra".setup()
-require "mini.files".setup({
-	mappings = {
-		go_in_plus = "<CR>",
-		go_in = "1",
-		go_out = "h",
-	},
-	windows = {
-		preview = true,
-		width_focus = 30,
-		width_nofocus = 20,
-		width_preview = 60,
-	},
-	options = {
-		use_as_default_explorer = false,
-	},
-})
-require "mini.git".setup()
+-- Vim.Plugins
 
--- require "mini.animate".setup()
-
-require "mini.cursorword".setup()
-require "mini.hipatterns".setup()
-require "mini.icons".setup()
-require "mini.indentscope".setup()
-require "mini.notify".setup()
-require "mini.starter".setup()
-require "mini.statusline".setup()
-require "mini.tabline".setup()
-require "mini.trailspace".setup()
-require "mini.doc".setup()
-require "mini.test".setup()
-
-require "comfy-line-numbers".setup()
+require("nvim-treesitter").setup()
 require "cord".setup({
 	editor = {
 		tooltip = 'The best way to code ;)'
@@ -139,15 +101,50 @@ require "cord".setup({
 require "crates".setup()
 require "fidget".setup()
 require "twilight".setup()
-require "colorizer".setup()
-require("auto-session").setup({
-  auto_save = true,
-  auto_restore = true,
-  auto_create = true,
-  suppressed_dirs = { "~/", "~/Downloads", "/" },
-  show_auto_restore_notif = true,
-})
 require("nvim-ts-autotag").setup()
+
+-- Vim.Mini
+
+-- Needed
+require("mini.completion").setup() -- For lsp to auto popup
+require("mini.pairs").setup()
+require("mini.extra").setup()
+do
+  local hipatterns = require("mini.hipatterns")
+  require("mini.hipatterns").setup({
+    highlighters = {
+      -- Standalone keywords
+      fixme = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
+      hack  = { pattern = '%f[%w]()HACK()%f[%W]',  group = 'MiniHipatternsHack'  },
+      todo  = { pattern = '%f[%w]()TODO()%f[%W]',  group = 'MiniHipatternsTodo'  },
+      note  = { pattern = '%f[%w]()NOTE()%f[%W]',  group = 'MiniHipatternsNote'  },
+
+      -- Hex colors → swatch highlight
+      hex_color = hipatterns.gen_highlighter.hex_color(),
+    },
+  })
+end
+require("mini.icons").setup()
+require("mini.indentscope").setup()
+require("mini.notify").setup()
+require("mini.statusline").setup()
+require("mini.trailspace").setup()
+
+-- Maybe
+require("mini.ai").setup()
+require("mini.snippets").setup() -- Need to look into this it looks like i need to make a snippets folder and make my own snippets
+require("mini.clue").setup({
+  triggers = {
+    { mode = "n", keys = "<Leader>" },
+    { mode = "x", keys = "<Leader>" },
+    { mode = "n", keys = "g" },
+    { mode = "x", keys = "g" },
+    { mode = "n", keys = "[" }, { mode = "n", keys = "]" },
+  },
+})
+-- require("mini.files").setup()
+require("mini.git").setup()
+require("mini.cursorword").setup()
 
 require("kanagawa").setup({
 	theme = "wave",
@@ -155,18 +152,4 @@ require("kanagawa").setup({
 	colors = { theme = { all = { ui = { bg_gutter = "none" } } } },
 })
 
-
-vim.keymap.set('n', '<leader>f', ":Pick files<CR>")
-vim.keymap.set('n', '<leader>fg', ":Pick grep live<CR>")
-vim.keymap.set('n', '<leader>h', ":Pick help<CR>")
-vim.keymap.set('n', '<leader>e', ":lua MiniFiles.open()<CR>")
-vim.keymap.set('n', '<leader>tw', ":lua MiniTrailspace.trim()<CR>")
-vim.keymap.set('n', '<leader>gg', ":lua MiniGit.show_at_cursor()<CR>")
-vim.keymap.set('n', '<leader>tt', ":Twilight<CR>")
-
-vim.lsp.enable({ "lua_ls", "html", "cssls", "jsonls", "yamlls", "tailwindcss", "eslint", "emmet_ls" })
-vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
-
--- vim.cmd("colorscheme kanagawa-dragon")
 vim.cmd.colorscheme("kanagawa")
--- vim.cmd("colorscheme default")
