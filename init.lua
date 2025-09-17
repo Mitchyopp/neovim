@@ -72,11 +72,11 @@ require "mini.pick".setup()
 require "mini.ai".setup()
 require "mini.align".setup()
 require "mini.comment".setup()
-require "mini.completion".setup({
-	delay = { completion = 60, info = 80, signature = 50 },
-	lsp_completion = { auto_setup = true },
-	fallback_action = '<C-n>',
-})
+-- require "mini.completion".setup({
+-- 	delay = { completion = 60, info = 80, signature = 50 },
+-- 	lsp_completion = { auto_setup = true },
+-- 	fallback_action = '<C-n>',
+-- })
 require "mini.move".setup()
 require "mini.operators".setup()
 require "mini.pairs".setup()
