@@ -27,26 +27,21 @@ vim.o.linebreak = true
 vim.o.smoothscroll = true
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
-vim.keymap.set('n', '<leader>o', ':update<CR> :source<CR>')
-vim.keymap.set('n', '<leader>w', ':write<CR>')
-vim.keymap.set('n', '<leader>q', ':quit<CR>')
-
-vim.keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
-vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
-
 vim.api.nvim_create_autocmd("TextYankPost", {
-  callback = function() vim.highlight.on_yank({ timeout = 120 }) end
+	callback = function() vim.highlight.on_yank({ timeout = 120 }) end
 })
 
 -- Vim.keymaps
 
+vim.keymap.set('n', '<leader>o', ':update<CR> :source<CR>')
+vim.keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
+vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
 vim.keymap.set("n", "<leader>e", ":Ex<CR>")
 vim.keymap.set("n", "<leader>w", ":w<CR>")
 vim.keymap.set("n", "<leader>q", ":q!<CR>")
 vim.keymap.set('n', '<leader>f', ":Pick files<CR>")
 vim.keymap.set('n', '<leader>fg', ":Pick grep live<CR>")
 vim.keymap.set('n', '<leader>h', ":Pick help<CR>")
-vim.keymap.set('n', '<leader>e', ":lua MiniFiles.open()<CR>")
 vim.keymap.set('n', '<leader>tw', ":lua MiniTrailspace.trim()<CR>")
 vim.keymap.set('n', '<leader>gg', ":lua MiniGit.show_at_cursor()<CR>")
 vim.keymap.set('n', '<leader>tt', ":Twilight<CR>")
@@ -69,6 +64,7 @@ vim.pack.add({
 	{ src = "https://github.com/folke/twilight.nvim" },
 	{ src = "https://github.com/mrcjkb/rustaceanvim" },
 	{ src = "https://github.com/windwp/nvim-ts-autotag" },
+	{ src = "https://github.com/stevearc/conform.nvim" },
 })
 
 -- Vim.Lsp
@@ -83,12 +79,17 @@ require('mason-tool-installer').setup({
 		"typescript-language-server",
 		"bash-language-server",
 		"vim-language-server",
+		"prettierd",
 	}
 })
 
 -- Vim.Plugins
 
-require("nvim-treesitter").setup()
+require("nvim-treesitter.configs").setup({
+	ensure_installed = { "lua", "vim", "vimdoc", "html", "css", "javascript", "bash", "json", "markdown", "markdown_inline" },
+	highlight = { enable = true },
+	indent = { enable = true, disable = { "html" } },
+})
 require "cord".setup({
 	editor = {
 		tooltip = 'The best way to code ;)'
@@ -101,6 +102,19 @@ require "cord".setup({
 require "crates".setup()
 require "fidget".setup()
 require "twilight".setup()
+require("conform").setup({
+	formatters_by_ft = {
+		javascript = { "prettierd", "prettier" },
+		typescript = { "prettierd", "prettier" },
+		html = { "prettierd", "prettier" },
+		css = { "prettierd", "prettier" },
+		json = { "prettierd", "prettier" },
+		markdown = { "prettierd", "prettier" },
+	},
+})
+vim.api.nvim_create_autocmd("BufWritePre", {
+	callback = function() require("conform").format({ async = false, lsp_fallback = true }) end,
+})
 require("nvim-ts-autotag").setup()
 
 -- Vim.Mini
@@ -110,19 +124,19 @@ require("mini.completion").setup() -- For lsp to auto popup
 require("mini.pairs").setup()
 require("mini.extra").setup()
 do
-  local hipatterns = require("mini.hipatterns")
-  require("mini.hipatterns").setup({
-    highlighters = {
-      -- Standalone keywords
-      fixme = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
-      hack  = { pattern = '%f[%w]()HACK()%f[%W]',  group = 'MiniHipatternsHack'  },
-      todo  = { pattern = '%f[%w]()TODO()%f[%W]',  group = 'MiniHipatternsTodo'  },
-      note  = { pattern = '%f[%w]()NOTE()%f[%W]',  group = 'MiniHipatternsNote'  },
+	local hipatterns = require("mini.hipatterns")
+	require("mini.hipatterns").setup({
+		highlighters = {
+			-- Standalone keywords
+			fixme     = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
+			hack      = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
+			todo      = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
+			note      = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
 
-      -- Hex colors → swatch highlight
-      hex_color = hipatterns.gen_highlighter.hex_color(),
-    },
-  })
+			-- Hex colors → swatch highlight
+			hex_color = hipatterns.gen_highlighter.hex_color(),
+		},
+	})
 end
 require("mini.icons").setup()
 require("mini.indentscope").setup()
@@ -134,13 +148,13 @@ require("mini.trailspace").setup()
 require("mini.ai").setup()
 require("mini.snippets").setup() -- Need to look into this it looks like i need to make a snippets folder and make my own snippets
 require("mini.clue").setup({
-  triggers = {
-    { mode = "n", keys = "<Leader>" },
-    { mode = "x", keys = "<Leader>" },
-    { mode = "n", keys = "g" },
-    { mode = "x", keys = "g" },
-    { mode = "n", keys = "[" }, { mode = "n", keys = "]" },
-  },
+	triggers = {
+		{ mode = "n", keys = "<Leader>" },
+		{ mode = "x", keys = "<Leader>" },
+		{ mode = "n", keys = "g" },
+		{ mode = "x", keys = "g" },
+		{ mode = "n", keys = "[" }, { mode = "n", keys = "]" },
+	},
 })
 -- require("mini.files").setup()
 require("mini.git").setup()
