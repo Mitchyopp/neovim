@@ -146,6 +146,7 @@ require("mini.trailspace").setup()
 
 -- Maybe
 require("mini.ai").setup()
+require("mini.surround").setup()
 require("mini.snippets").setup() -- Need to look into this it looks like i need to make a snippets folder and make my own snippets
 require("mini.clue").setup({
 	triggers = {
