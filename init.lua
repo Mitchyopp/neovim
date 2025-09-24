@@ -36,14 +36,18 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 vim.keymap.set('n', '<leader>o', ':update<CR> :source<CR>')
 vim.keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
 vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
-vim.keymap.set("n", "<leader>e", ":Ex<CR>")
+-- vim.keymap.set("n", "<leader>e", ":Ex<CR>")
+vim.keymap.set("n", "<leader>e", ":lua MiniFiles.open()<CR>")
 vim.keymap.set("n", "<leader>w", ":w<CR>")
 vim.keymap.set("n", "<leader>q", ":q<CR>")
-vim.keymap.set('n', '<leader>f', ":Pick files<CR>")
+vim.keymap.set('n', '<leader>ff', ":Pick files<CR>")
 vim.keymap.set('n', '<leader>fg', ":Pick grep live<CR>")
 vim.keymap.set('n', '<leader>h', ":Pick help<CR>")
 vim.keymap.set('n', '<leader>tw', ":lua MiniTrailspace.trim()<CR>")
 vim.keymap.set('n', '<leader>gg', ":lua MiniGit.show_at_cursor()<CR>")
+vim.keymap.set({ "n", "x" }, "d", '"_d') -- Makes it so deleting does not go to clipboard
+vim.keymap.set({ "n", "x" }, "c", '"_c') -- Makes it so deleting does not go to clipboard
+vim.keymap.set({ "n", "x" }, "x", '"_x') -- Makes it so deleting does not go to clipboard
 vim.keymap.set('n', '<leader>tt', ":Twilight<CR>")
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
 
@@ -102,19 +106,6 @@ require "cord".setup({
 require "crates".setup()
 require "fidget".setup()
 require "twilight".setup()
-require("conform").setup({
-	formatters_by_ft = {
-		javascript = { "prettierd", "prettier" },
-		typescript = { "prettierd", "prettier" },
-		html = { "prettierd", "prettier" },
-		css = { "prettierd", "prettier" },
-		json = { "prettierd", "prettier" },
-		markdown = { "prettierd", "prettier" },
-	},
-})
-vim.api.nvim_create_autocmd("BufWritePre", {
-	callback = function() require("conform").format({ async = false, lsp_fallback = true }) end,
-})
 require("nvim-ts-autotag").setup()
 
 -- Vim.Mini
@@ -145,19 +136,21 @@ require("mini.statusline").setup()
 require("mini.trailspace").setup()
 
 -- Maybe
-require("mini.ai").setup()
+require("mini.ai").setup({
+  n_lines = 500,
+  custom_textobjects = {
+    f = require("mini.ai").gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
+    c = require("mini.ai").gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),
+    p = require("mini.ai").gen_spec.treesitter({ a = "@parameter.outer", i = "@parameter.inner" }),
+  },
+})
 require("mini.surround").setup()
 require("mini.snippets").setup() -- Need to look into this it looks like i need to make a snippets folder and make my own snippets
-require("mini.clue").setup({
-	triggers = {
-		{ mode = "n", keys = "<Leader>" },
-		{ mode = "x", keys = "<Leader>" },
-		{ mode = "n", keys = "g" },
-		{ mode = "x", keys = "g" },
-		{ mode = "n", keys = "[" }, { mode = "n", keys = "]" },
+require("mini.files").setup({
+	mappings = {
+		go_in		='<CR>',
 	},
 })
--- require("mini.files").setup()
 require("mini.git").setup()
 require("mini.cursorword").setup()
 require("mini.pick").setup()
