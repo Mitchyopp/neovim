@@ -8,7 +8,7 @@ vim.o.cursorline = true
 vim.o.smartindent = true
 vim.o.termguicolors = true
 vim.o.undofile = true
-vim.opt.undodir = vim.fn.expand("$HOME/.config/nvim/undodir")
+vim.o.undodir = vim.fn.expand("$HOME/.config/nvim/undodir")
 vim.o.autoread = true
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
@@ -69,34 +69,50 @@ vim.pack.add({
 	{ src = "https://github.com/mrcjkb/rustaceanvim" },
 	{ src = "https://github.com/windwp/nvim-ts-autotag" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
+	{ src = "https://github.com/neovim/nvim-lspconfig"},
 })
 
--- Vim.Lsp
+-- vim.lsp
 
-require('mason').setup()
-require('mason-lspconfig').setup()
-require('mason-tool-installer').setup({
-	ensure_installed = {
-		"lua_ls",
-		"html-lsp",
-		"css-lsp",
-		"typescript-language-server",
-		"bash-language-server",
-		"vim-language-server",
-		"prettierd",
-	}
+require("mason").setup()
+require("mason-lspconfig").setup({
+	ensure_installed = {"lua_ls", "ts_ls", "html", "cssls", "bashls", "vimls"}
 })
 
--- Vim.Plugins
+vim.diagnostic.config({
+	virtual_text = true
+})
+
+-- local lsp = require('lspconfig')
+-- lsp.lua_ls.setup({})
+-- lsp.ts_ls.setup({})
+-- lsp.html.setup({})
+-- lsp.cssls.setup({})
+-- lsp.bashls.setup({})
+-- lsp.vimls.setup({})
+vim.diagnostic.config({ virtual_text = true, signs = true, underline = true })
+vim.lsp.handlers['textDocument/hover']        = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
+vim.lsp.handlers['textDocument/signatureHelp']= vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
+
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+vim.keymap.set("n", "<leader>p", vim.lsp.buf.hover, opts)
+vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
+vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+-- vim.keymap.set("n", "v", vim.lsp.buf.code_action, opts)
+vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+
+-- vim.plugins
 
 require("nvim-treesitter.configs").setup({
 	ensure_installed = { "lua", "vim", "vimdoc", "html", "css", "javascript", "bash", "json", "markdown", "markdown_inline" },
 	highlight = { enable = true },
-	indent = { enable = true, disable = { "html" } },
+	-- indent = { enable = true },
+	-- indent = { enable = true, disable = { "html" } },
 })
 require "cord".setup({
 	editor = {
-		tooltip = 'The best way to code ;)'
+		tooltip = 'the best way to code ;)'
 	},
 	idle = {
 		timeout = 600000,
@@ -107,24 +123,25 @@ require "crates".setup()
 require "fidget".setup()
 require "twilight".setup()
 require("nvim-ts-autotag").setup()
+require("comfy-line-numbers").setup()
 
--- Vim.Mini
+-- vim.mini
 
--- Needed
-require("mini.completion").setup() -- For lsp to auto popup
+-- needed
+require("mini.completion").setup() -- for lsp to auto popup
 require("mini.pairs").setup()
 require("mini.extra").setup()
 do
 	local hipatterns = require("mini.hipatterns")
 	require("mini.hipatterns").setup({
 		highlighters = {
-			-- Standalone keywords
-			fixme     = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
-			hack      = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
-			todo      = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
-			note      = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
+			-- standalone keywords
+			fixme     = { pattern = '%f[%w]()fixme()%f[%w]', group = 'minihipatternsfixme' },
+			hack      = { pattern = '%f[%w]()hack()%f[%w]', group = 'minihipatternshack' },
+			todo      = { pattern = '%f[%w]()todo()%f[%w]', group = 'minihipatternstodo' },
+			note      = { pattern = '%f[%w]()note()%f[%w]', group = 'minihipatternsnote' },
 
-			-- Hex colors → swatch highlight
+			-- hex colors → swatch highlight
 			hex_color = hipatterns.gen_highlighter.hex_color(),
 		},
 	})
@@ -135,7 +152,7 @@ require("mini.notify").setup()
 require("mini.statusline").setup()
 require("mini.trailspace").setup()
 
--- Maybe
+-- maybe
 require("mini.ai").setup({
   n_lines = 500,
   custom_textobjects = {
@@ -144,11 +161,18 @@ require("mini.ai").setup({
     p = require("mini.ai").gen_spec.treesitter({ a = "@parameter.outer", i = "@parameter.inner" }),
   },
 })
+require("mini.move").setup({
+  mappings = {
+    left = '<m-h>', right = '<m-l>', down = '<m-j>', up = '<m-k>',
+    line_left = '<m-h>', line_right = '<m-l>', line_down = '<m-j>', line_up = '<m-k>',
+  },
+  options = { reindent_linewise = true },
+})
 require("mini.surround").setup()
-require("mini.snippets").setup() -- Need to look into this it looks like i need to make a snippets folder and make my own snippets
+require("mini.snippets").setup() -- need to look into this it looks like i need to make a snippets folder and make my own snippets
 require("mini.files").setup({
 	mappings = {
-		go_in		='<CR>',
+		go_in		='<cr>',
 	},
 })
 require("mini.git").setup()
