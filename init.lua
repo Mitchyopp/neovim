@@ -37,7 +37,8 @@ vim.keymap.set('n', '<leader>o', ':update<CR> :source<CR>')
 vim.keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
 vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
 -- vim.keymap.set("n", "<leader>e", ":Ex<CR>")
-vim.keymap.set("n", "<leader>e", ":lua MiniFiles.open()<CR>")
+-- vim.keymap.set("n", "<leader>e", ":lua MiniFiles.open()<CR>")
+vim.keymap.set("n", "<leader>e", ":Ex<CR>")
 vim.keymap.set("n", "<leader>w", ":w<CR>")
 vim.keymap.set("n", "<leader>q", ":q<CR>")
 vim.keymap.set('n', '<leader>ff', ":Pick files<CR>")
@@ -170,11 +171,11 @@ require("mini.move").setup({
 })
 require("mini.surround").setup()
 require("mini.snippets").setup() -- need to look into this it looks like i need to make a snippets folder and make my own snippets
-require("mini.files").setup({
-	mappings = {
-		go_in		='<cr>',
-	},
-})
+-- require("mini.files").setup({
+-- 	mappings = {
+-- 		go_in		='<cr>',
+-- 	},
+-- })
 require("mini.git").setup()
 require("mini.cursorword").setup()
 require("mini.pick").setup()
@@ -186,3 +187,5 @@ require("kanagawa").setup({
 })
 
 vim.cmd.colorscheme("kanagawa")
+
+-- Lazygit
